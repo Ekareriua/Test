@@ -19,9 +19,12 @@ async function testKistochki() {
     ]);
     await page.waitFor(2000)
 
-    console.log('Шаг 2: Возвращаемся на предыдущую страницу');
-    await page.goBack();
-    await page.waitFor(2000)
+    console.log('Шаг 1: Возвращаемся на предыдущую страницу');
+      await Promise.all([
+        page.click('.nuxt-link-exact-active[href="/akcii"]'),
+        page.waitForNavigation({ waitUntil: 'networkidle0' }),
+        await page.waitFor(2000)
+    ]);
 
     console.log('Получение строки с результатом');
     const text = await page.$eval('.CardPopular__Title[href="/akcii/manikyur-s-pokrytiem-gel-lak-za-770-rub"]',
